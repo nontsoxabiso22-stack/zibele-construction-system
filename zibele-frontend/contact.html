@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Zibele Construction</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background-color: #222;
+            color: white;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            color: #f4b400;
+        }
+
+        .page-header {
+            background-image: url("https://images.unsplash.com/photo-1504307651254-35680f356dfd");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 90px 20px;
+        }
+
+        .page-header h1 {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 18px;
+        }
+
+        .contact-container {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .contact-info,
+        .contact-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .contact-info h2,
+        .contact-form h2 {
+            margin-bottom: 20px;
+            color: #222;
+        }
+
+        .contact-info p {
+            margin-bottom: 18px;
+            line-height: 1.6;
+        }
+
+        .contact-info strong {
+            color: #f4b400;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        .contact-form textarea {
+            height: 130px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            background-color: #f4b400;
+            color: #222;
+            border: none;
+            padding: 13px 25px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .contact-form button:hover {
+            background-color: #d99c00;
+        }
+
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 0 8px;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 35px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">Zibele Construction</div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="services.html">Services</a>
+            <a href="projects.html">Projects</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+    </header>
+
+    <section class="page-header">
+        <h1>Contact Us</h1>
+        <p>Let's discuss your next construction project.</p>
+    </section>
+
+    <section class="contact-container">
+
+        <div class="contact-info">
+            <h2>Get In Touch</h2>
+
+            <p>
+                We would be happy to hear from you. Contact Zibele Construction
+                to discuss your construction, renovation or project planning needs.
+            </p>
+
+            <p>
+                <strong>Phone:</strong>
+                +27 (47) 532-7924
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                comming soon
+            </p>
+
+            <p>
+                <strong>Address:</strong><br>
+                Chris Hani, Mthatha, Eastern Cape, South Africa
+            </p>
+
+            <p>
+                Our team will be ready to assist you with your enquiry.
+            </p>
+        </div>
+
+        <div class="contact-form">
+            <h2>Send Us An Enquiry</h2>
+
+            <form>
+
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Tell us about your project..." required></textarea>
+
+                <button type="submit">Send Enquiry</button>
+
+            </form>
+        </div>
+
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Zibele Construction. All Rights Reserved.</p>
+    </footer>
+
+<script>
+    const contactForm = document.querySelector("form");
+
+    contactForm.addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const full_name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        const message = document.getElementById("message").value;
+
+        try {
+
+            const response = await fetch("http://localhost:3000/api/enquiries", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    full_name: full_name,
+                    email: email,
+                    phone: phone,
+                    message: message
+                })
+            });
+
+            if (response.ok) {
+
+                alert("Thank you! Your enquiry has been sent successfully.");
+
+                contactForm.reset();
+
+            } else {
+
+                alert("There was a problem sending your enquiry.");
+
+            }
+
+        } catch (error) {
+
+            console.error("Error:", error);
+
+            alert("Unable to send your enquiry. Please try again later.");
+
+        }
+
+    });
+</script>
+
+</body>
+</html>

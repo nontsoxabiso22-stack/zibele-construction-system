@@ -1,0 +1,421 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <title>Zibele Construction</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+        }
+
+        header {
+            background-color: #1f2937;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 30px auto;
+        }
+
+        .card {
+            background-color: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #1f2937;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        textarea {
+            height: 80px;
+            resize: vertical;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #1f2937;
+            color: white;
+        }
+
+        .message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Zibele Construction</h1>
+    <p>Customer Management System</p>
+</header>
+
+<div class="container">
+
+    <!-- Customer Registration -->
+    <div class="card">
+
+        <h2>Add Customer</h2>
+
+        <form id="customerForm">
+
+            <label for="full_name">Full Name</label>
+            <input type="text" id="full_name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" required>
+
+            <label for="address">Address</label>
+            <textarea id="address" required></textarea>
+
+            <button type="submit">Add Customer</button>
+
+        </form>
+
+        <div id="message" class="message"></div>
+
+    </div>
+
+    <!-- Customer List -->
+    <div class="card">
+
+        <h2>Customers</h2>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                   
+                </tr>
+            </thead>
+
+            <tbody id="customerTable">
+            </tbody>
+
+        </table>
+        <div style="margin-top: 20px;">
+    <button onclick="deleteSelectedCustomer()">
+        Delete Selected Customer
+    </button>
+    <button onclick="editSelectedCustomer()">
+    Edit Selected Customer
+</button>
+</div>
+
+    </div>
+
+</div>
+
+<script>
+let selectedCustomerId = null;
+const API_URL = "http://localhost:3000";
+
+// Add customer
+document.getElementById("customerForm").addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const full_name = document.getElementById("full_name").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+    const address = document.getElementById("address").value;
+
+    try {
+
+        const response = await fetch(`${API_URL}/api/customers`, {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                full_name,
+                email,
+                phone,
+                address
+            })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+
+            document.getElementById("message").textContent =
+                "Customer added successfully!";
+
+            document.getElementById("customerForm").reset();
+
+            loadCustomers();
+
+        } else {
+
+            document.getElementById("message").textContent =
+                data.error || "Failed to add customer.";
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("message").textContent =
+            "Could not connect to the server.";
+    }
+
+});
+
+// Load customers
+async function loadCustomers() {
+
+    try {
+
+        const response = await fetch(`${API_URL}/api/customers`);
+
+        const customers = await response.json();
+
+        const table = document.getElementById("customerTable");
+
+        table.innerHTML = "";
+
+        customers.forEach(customer => {
+
+            const row = document.createElement("tr");
+
+           row.innerHTML = `
+    <td>${customer.customer_id}</td>
+    <td>${customer.full_name}</td>
+    <td>${customer.email}</td>
+    <td>${customer.phone}</td>
+    <td>${customer.address}</td>
+   
+`;
+
+row.style.cursor = "pointer";
+
+row.onclick = function() {
+    selectedCustomerId = customer.customer_id;
+
+    document.querySelectorAll("#customerTable tr").forEach(r => {
+        r.style.backgroundColor = "";
+    });
+
+    row.style.backgroundColor = "#e0e7ff";
+};
+
+            table.appendChild(row);
+
+        });
+
+    } catch (error) {
+
+        console.error("Error loading customers:", error);
+
+    }
+}
+// Delete customer
+async function deleteCustomer(id) {
+
+    const confirmDelete = confirm(
+        "Are you sure you want to delete this customer?"
+    );
+
+    if (!confirmDelete) {
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            `${API_URL}/api/customers/${id}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+        const data = await response.json();
+
+        if (response.ok) {
+
+            document.getElementById("message").textContent =
+                "Customer deleted successfully!";
+
+            loadCustomers();
+
+        } else {
+
+            document.getElementById("message").textContent =
+                data.error || "Failed to delete customer.";
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("message").textContent =
+            "Could not connect to the server.";
+
+    }
+}
+//Delete selected customer
+
+async function deleteSelectedCustomer() {
+
+    if (selectedCustomerId === null) {
+        alert("Please select a customer first.");
+        return;
+    }
+
+    await deleteCustomer(selectedCustomerId);
+
+    selectedCustomerId = null;
+}
+// Edit selected customer
+async function editSelectedCustomer() {
+
+    if (selectedCustomerId === null) {
+        alert("Please select a customer first.");
+        return;
+    }
+
+    const customer = customers.find(
+        c => c.customer_id === selectedCustomerId
+    );
+
+    if (!customer) {
+        alert("Customer not found.");
+        return;
+    }
+
+    const full_name = prompt("Enter full name:", customer.full_name);
+    if (full_name === null) return;
+
+    const email = prompt("Enter email:", customer.email);
+    if (email === null) return;
+
+    const phone = prompt("Enter phone:", customer.phone);
+    if (phone === null) return;
+
+    const address = prompt("Enter address:", customer.address);
+    if (address === null) return;
+
+    try {
+
+        const response = await fetch(
+            `${API_URL}/api/customers/${selectedCustomerId}`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    full_name,
+                    email,
+                    phone,
+                    address
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (response.ok) {
+
+            document.getElementById("message").textContent =
+                "Customer updated successfully!";
+
+            loadCustomers();
+
+        } else {
+
+            document.getElementById("message").textContent =
+                data.error || "Failed to update customer.";
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("message").textContent =
+            "Could not connect to the server.";
+    }
+}
+// Load customers when page opens
+loadCustomers();
+
+</script>
+
+</body>
+</html>
+```

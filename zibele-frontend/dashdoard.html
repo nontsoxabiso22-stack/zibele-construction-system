@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Zibele Construction - Management Dashboard</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #222;
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .dashboard-title {
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .intro {
+            margin-bottom: 30px;
+            color: #666;
+        }
+
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .card-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .number {
+            font-size: 40px;
+            font-weight: bold;
+            color: #f4b400;
+        }
+
+        .management-section {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .management-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .management-card h2 {
+            margin-bottom: 10px;
+        }
+
+        .management-card p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        .management-card a {
+            display: inline-block;
+            background-color: #f4b400;
+            color: #222;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .management-card a:hover {
+            background-color: #d99c00;
+        }
+        .enquiries-section {
+            background-color: white;
+            margin-top: 40px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .enquiries-section h2 {
+             margin-bottom: 20px;
+        }
+
+        .enquiry-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .enquiry-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .enquiry-card p {
+            margin-bottom: 8px;
+        }
+
+        .enquiry-date {
+            color: #777;
+            font-size: 14px;
+        }
+
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .management-section {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">
+            Zibele Construction
+        </div>
+
+        <div class="dashboard-title">
+            Management Dashboard
+        </div>
+
+    </header>
+
+
+    <div class="container">
+
+       <h1>Zibele Construction Management Dashboard</h1>
+
+        <p>
+             Manage customers, projects, employees and enquiries
+             from one place.
+        </p>
+
+        <div class="dashboard-cards">
+
+            <div class="card">
+
+                <div class="card-icon">
+                    👥
+                </div>
+
+                <h2>Total Customers</h2>
+
+                <div class="number" id="customerCount">
+                    ...
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🏗️
+                </div>
+
+                <h2>Total Projects</h2>
+
+                <div class="number" id="projectCount">
+                    ...
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    📩
+                </div>
+
+                <h2>Total Enquiries</h2>
+
+                <div class="number" id="enquiryCount">
+                    ...
+                </div>
+
+            </div>
+            <div class="dashboard-card">
+                <h2>Total Employees</h2>
+                <p id="employeeCount">0</p>
+            </div>
+
+        </div>
+
+
+        <div class="management-section">
+
+            <div class="management-card">
+
+                <h2>Customer Management</h2>
+
+                 <p>Manage customer information and records.</p>
+
+                <a href="customers.html">
+                    Manage Customers
+                </a>
+
+            </div>
+
+
+            <div class="management-card">
+
+                <h2>Project Management</h2>
+
+               <p>Manage construction projects and project information.</p>
+
+                <a href="project-management.html">
+                    Manage Projects
+                </a>
+
+            </div>
+            <div class="management-card">
+                <h2>Employee Management</h2>
+                
+                 <p>Manage employees and staff information.</p>
+
+                <a href="employees.html">
+                    Manage Employees
+                </a>
+            </div>
+
+
+        </div>
+
+    </div>
+            <div class="enquiries-section">
+
+            <h2>Recent Enquiries</h2>
+
+            <div id="enquiriesList">
+
+                <p>Loading enquiries...</p>
+
+            </div>
+
+        </div>
+
+
+
+    <footer>
+
+        <p>
+            &copy; 2026 Zibele Construction. Management System.
+        </p>
+
+    </footer>
+
+
+    <script>
+
+        async function loadDashboard() {
+
+            try {
+
+                const customersResponse =
+                    await fetch("http://localhost:3000/api/customers");
+
+                const projectsResponse =
+                    await fetch("http://localhost:3000/api/projects");
+
+                const enquiriesResponse =
+                    await fetch("http://localhost:3000/api/enquiries");
+                const employeesResponse = 
+                    await fetch("http://localhost:3000/api/employees");
+
+
+                const customers =
+                    await customersResponse.json();
+
+                const projects =
+                    await projectsResponse.json();
+
+                const enquiries =
+                    await enquiriesResponse.json();
+                const employees = 
+                    await employeesResponse.json();
+
+
+                document.getElementById("customerCount").textContent =
+                    customers.length;
+
+                document.getElementById("projectCount").textContent =
+                    projects.length;
+
+                document.getElementById("enquiryCount").textContent =
+                    enquiries.length;
+                document.getElementById("employeeCount").textContent = 
+                    employees.length;
+                const enquiriesList =
+                document.getElementById("enquiriesList");
+                    enquiriesList.innerHTML = "";
+
+if (enquiries.length === 0) {
+
+    enquiriesList.innerHTML =
+        "<p>No enquiries available.</p>";
+
+} else {
+
+    enquiries.forEach(enquiry => {
+
+        const enquiryCard =
+            document.createElement("div");
+
+        enquiryCard.className =
+            "enquiry-card";
+
+        enquiryCard.innerHTML = `
+            <h3>${enquiry.full_name}</h3>
+
+            <p>
+                <strong>Email:</strong>
+                ${enquiry.email}
+            </p>
+
+            <p>
+                <strong>Phone:</strong>
+                ${enquiry.phone || "Not provided"}
+            </p>
+
+            <p>
+                <strong>Message:</strong>
+                ${enquiry.message}
+            </p>
+
+            <p class="enquiry-date">
+                <strong>Date:</strong>
+                ${new Date(enquiry.created_at).toLocaleString()}
+            </p>
+        `;
+
+        enquiriesList.appendChild(enquiryCard);
+
+    });
+
+}
+
+            } catch (error) {
+
+                console.error(
+                    "Error loading dashboard:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        loadDashboard();
+
+    </script>
+
+</body>
+</html>

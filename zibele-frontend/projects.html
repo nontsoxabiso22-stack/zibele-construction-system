@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Projects | Zibele Construction</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #222;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #1f2937;
+            color: white;
+            padding: 20px 50px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            color: #f59e0b;
+        }
+
+        .page-header {
+            background-color: #374151;
+            color: white;
+            text-align: center;
+            padding: 70px 20px;
+        }
+
+        .page-header h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .projects {
+            max-width: 1100px;
+            margin: auto;
+            padding: 60px 30px;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .project-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-content h2 {
+            margin-bottom: 12px;
+        }
+
+        .project-content p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .status {
+            display: inline-block;
+            background-color: #f59e0b;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        .contact-section {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: white;
+        }
+
+        .contact-section h2 {
+            margin-bottom: 15px;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #f59e0b;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background-color: #d97706;
+        }
+
+        footer {
+            background-color: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        @media (max-width: 800px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 20px;
+            }
+
+            nav a {
+                margin: 0 8px;
+            }
+
+            .projects {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+    <header>
+
+        <div class="logo">
+            Zibele Construction
+        </div>
+
+        <nav>
+
+            <a href="index.html">Home</a>
+
+            <a href="about.html">About Us</a>
+
+            <a href="services.html">Services</a>
+
+            <a href="projects.html">Projects</a>
+
+            <a href="contact.html">Contact Us</a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- Page Header -->
+
+    <section class="page-header">
+
+        <h1>Our Projects</h1>
+
+        <p>
+            Explore some of the construction projects managed by
+            Zibele Construction.
+        </p>
+
+    </section>
+
+
+    <!-- Projects -->
+
+    <section class="projects">
+
+      <div class="projects-container" id="projectsContainer">
+
+    <p>Loading projects...</p>
+
+</div>
+    </section>
+
+
+    <!-- Contact -->
+
+    <section class="contact-section">
+
+        <h2>Interested in Working With Us?</h2>
+
+        <p>
+            Contact Zibele Construction to discuss your next project.
+        </p>
+
+        <a href="contact.html" class="button">
+            Contact Us
+        </a>
+
+    </section>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+            © 2026 Zibele Construction. All Rights Reserved.
+        </p>
+
+    </footer>
+
+<script>
+
+    const projectsContainer = document.getElementById("projectsContainer");
+
+    fetch("http://localhost:3000/api/projects")
+        .then(response => response.json())
+        .then(projects => {
+
+            projectsContainer.innerHTML = "";
+
+            if (projects.length === 0) {
+                projectsContainer.innerHTML =
+                    "<p>No projects available at the moment.</p>";
+                return;
+            }
+
+            projects.forEach(project => {
+
+                const projectCard = document.createElement("div");
+
+                projectCard.className = "project-card";
+
+                projectCard.innerHTML = `
+                    <img
+                        class="project-image"
+                        src="${project.image_url || 'https://images.unsplash.com/photo-1503387762-592deb58ef4e'}"
+                        alt="${project.project_name}"
+                    >
+
+                    <div class="project-content">
+
+                        <h2>${project.project_name}</h2>
+
+                        <p>
+                            ${project.description || "No description available."}
+                        </p>
+
+                        <p>
+                            <strong>Location:</strong>
+                            ${project.location || "Not specified"}
+                        </p>
+
+                        <span class="status">
+                            ${project.status || "Not specified"}
+                        </span>
+
+                    </div>
+                `;
+
+                projectsContainer.appendChild(projectCard);
+
+            });
+
+        })
+        .catch(error => {
+
+            console.error("Error loading projects:", error);
+
+            projectsContainer.innerHTML =
+                "<p>Unable to load projects. Please try again later.</p>";
+
+        });
+
+</script>
+
+</body>
+</html>
